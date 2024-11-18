@@ -1,13 +1,10 @@
-# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
-```
-NAME : RAVIVARMAN G S
-REG NO : 212223100044
-```
+# EXPERIMENT 05 SQUARE WAVE GENERATION USING TIMER
+
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
 
 ### Components required:
-STM32 CUBE IDE, Proteus 8 simulator .
+STM32 CUBE IDE, Proteus 8 simulator.
 
 ### Theory:
 
@@ -93,12 +90,8 @@ Step10. Double click on the the MCU part to open settings. Next to the Program F
 Step14. click on debug and simulate using simulation as shown below 
  ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/b8efbfc2-f0c5-4106-8117-3a6e7ac87f6c)
 
-
- 
-
-  
-
 ## STM 32 CUBE PROGRAM :
+
 ```
 /* USER CODE BEGIN Header */
 /**
@@ -198,8 +191,8 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   HAL_TIM_Base_Start(&htim2);
-    HAL_TIM_PWM_Init(&htim2);
-    HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+      HAL_TIM_PWM_Init(&htim2);
+      HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -271,7 +264,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 10000;
+  htim2.Init.Period = 1000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
@@ -285,7 +278,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 5000;
+  sConfigOC.Pulse = 900;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
@@ -352,46 +345,79 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 ```
-
-
 ## Output screen shots of proteus  :
- ![image](https://github.com/user-attachments/assets/2bfd3e72-27df-4da1-9a83-eee53b922076)
-![image](https://github.com/user-attachments/assets/02469ecb-eb40-4201-b498-91d2006dfd21)
-![image](https://github.com/user-attachments/assets/720d1a1c-93c2-49f0-9c9a-855d9ef2d5a8)
-![image](https://github.com/user-attachments/assets/7b70e4f7-b997-4fb7-b5c1-b844f1dafab9)
+ ![Screenshot 2024-10-30 092543](https://github.com/user-attachments/assets/48bf4a42-bde0-4489-b65f-d406ada862ab)
 
  
  ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
- ![image](https://github.com/user-attachments/assets/6f51d070-5edb-4613-a99b-54d4fc4708c0)
+ 
+ ![Screenshot 2024-11-06 194834](https://github.com/user-attachments/assets/f7d9fab6-5bc0-497e-8df5-95672fcb5918)
 
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
-FOR PULSE AT 500
 
-TON = 
-TOFF=
-TOTAL TIME = 
+
+# FOR PULSE AT 500
+
+![Screenshot 2024-11-05 082455](https://github.com/user-attachments/assets/11c95597-fdcc-4890-b34a-10a678d70a41)
+
+```
+TON = 3 x 10 x 10^-6
+    = 0.00003
+TOFF=0.00003
+TOTAL TIME = TON + TOFF
+           = 0.00003+0.00003 
+           = 0.00006
+FREQUENCY = 1/(TOTAL TIME) 
+          =1/0.00006 
+          = 16666.7
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00003/0.00006
+           = 0.5
+      IN % =0.5*100 
+           = 50 %
+```
+
+# FOR PULSE AT 700
+
+![Screenshot 2024-11-06 092923](https://github.com/user-attachments/assets/0b78741e-28d3-46d5-bd2c-f662ad87637e)
+
+```
+TON = 4 x 10 x 10^-6
+    = 0.00004
+TOFF= 2 x 10 x 10^-6
+    = 0.00002
+TOTAL TIME = TON + TOFF
+           = 0.00004+0.00002
+           = 0.00006
 FREQUENCY = 1/(TOTAL TIME)
+          = 16666.7
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00004/0.00006
+           = 0.7
+      IN % =0.7*100 
+           = 70 %
+```
 
-FOR PULSE AT 700
+# FOR PULSE AT 900
 
-TON = 
-TOFF=
-TOTAL TIME = 
+![Screenshot 2024-11-06 133102](https://github.com/user-attachments/assets/4d1ca5c4-4ae8-4a5a-a608-d575ae0251ab)
+
+```
+TON = 1 x 50 x 10^-6
+    = 0.00005
+TOFF= 0.1 x 50 x 10^-6
+    = 0.000005
+TOTAL TIME = TON + TOFF
+           = 0.00005 + 0.000005
+           = 0.000055
 FREQUENCY = 1/(TOTAL TIME)
-
-
-FOR PULSE AT 900
-
-TON = 
-TOFF=
-TOTAL TIME = 
-FREQUENCY = 1/(TOTAL TIME)
-
-
+          = 18181.82
+DUTY CYCLE = TON /(TON+TOFF)
+           = 0.00005/0.000055
+           = 0.9
+      IN % =0.9*100 
+           = 90 %
+```
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated 
-
-
-
-
